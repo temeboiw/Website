@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SentinelOS V10 Eternity</title>
+<meta name="description" content="SentinelOS V10 Eternity: a Windows-compatible desktop OS built on the SentinelOS kernel. Follow the roadmap, compatibility results and release status.">
+<meta property="og:title" content="SentinelOS V10 Eternity">
+<meta property="og:description" content="The release that never lies about itself. Track every release criterion in public.">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07080d;--fg:#e9ecf5;--mut:#8b93a8;--line:#222839;--panel:#0e1119;--cob:#1a2cff;--sig:#ffb020;--ok:#35e08a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f4f8;--fg:#0b0e1a;--mut:#555d75;--line:#cfd4e2;--panel:#fff;--sig:#b36b00;--ok:#0a8a4a;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f3f4f8;--fg:#0b0e1a;--mut:#555d75;--line:#cfd4e2;--panel:#fff;--sig:#b36b00;--ok:#0a8a4a}
+:root[data-theme="dark"]{--bg:#07080d;--fg:#e9ecf5;--mut:#8b93a8;--line:#222839;--panel:#0e1119;--sig:#ffb020;--ok:#35e08a}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;font-weight:900;margin:0;line-height:.9;letter-spacing:.005em}
+a{color:inherit}:focus-visible{outline:3px solid var(--sig);outline-offset:3px}
+.w{max-width:1100px;margin:0 auto;padding:0 22px}
+.hero{background:var(--cob);color:#fff;position:relative;overflow:hidden}
+.hero .w{padding-top:34px;padding-bottom:70px}
+nav{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:15px;gap:12px;flex-wrap:wrap}
+nav b{font-family:"Big Shoulders Display",Impact,sans-serif;font-size:24px;letter-spacing:.04em}
+nav div{display:flex;gap:18px;align-items:center}nav a{text-decoration:none;opacity:.85}nav a:hover{opacity:1}
+nav button{background:none;border:1px solid #fff8;color:#fff;border-radius:99px;padding:3px 12px;font:inherit;cursor:pointer}
+h1{font-size:clamp(78px,20vw,250px);margin:56px 0 0;text-transform:uppercase;letter-spacing:-.01em;line-height:.8}
+.sub{font-family:"Big Shoulders Display",Impact,sans-serif;font-weight:800;font-size:clamp(26px,5vw,54px);line-height:1;margin:18px 0 0;max-width:15em}
+.hgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;margin-top:40px;align-items:end}
+.hero p{margin:0;max-width:34em;font-size:19px;color:#e4e8ff}
+.boot{background:#02030a;border:1px solid #ffffff40;border-radius:6px;padding:16px 18px;font:13px/1.65 ui-monospace,Consolas,monospace;color:#cfd6ff;min-height:236px}
+.boot i{font-style:normal;color:var(--ok)}.boot em{font-style:normal;color:var(--sig)}
+.cur{display:inline-block;width:8px;height:14px;background:#fff;vertical-align:-2px;animation:b 1s steps(2) infinite}
+@keyframes b{50%{opacity:0}}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;background:#fff;color:#0a14b8;font-weight:600;padding:12px 22px;border-radius:4px;text-decoration:none;border:2px solid #fff}
+.btn.o{background:none;color:#fff}
+section{padding:84px 0;border-bottom:1px solid var(--line)}
+h2{font-size:clamp(44px,8vw,92px);text-transform:uppercase;max-width:12em}
+.lead{color:var(--mut);max-width:38em;margin:18px 0 0}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;margin-top:44px;border-top:1px solid var(--line)}
+.rule{padding:22px 24px 22px 0;border-bottom:1px solid var(--line)}
+.rule h3{font-size:30px;color:var(--sig);margin-bottom:8px;text-transform:uppercase}
+.rule p{margin:0;color:var(--mut);font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:36px}
+.chips span{border:1px solid var(--line);background:var(--panel);padding:6px 13px;border-radius:99px;font-size:15px}
+.chips span.k{border-color:var(--cob);background:var(--cob);color:#fff;font-weight:600}
+.tw{overflow-x:auto;margin-top:36px;border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;min-width:640px;font-size:15px;background:var(--panel)}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:500}tr:last-child td{border:0}
+.tag{display:inline-block;padding:2px 10px;border-radius:3px;font-weight:600;font-size:13px;background:#ffb02026;color:var(--sig)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:40px}
+.tabs button{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:4px;padding:9px 14px;font:600 14px "IBM Plex Sans",sans-serif;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--cob);border-color:var(--cob);color:#fff}
+.ph{margin-top:16px;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:26px;display:grid;grid-template-columns:1fr 1.4fr;gap:24px}
+.ph h3{font-size:clamp(34px,5vw,56px);text-transform:uppercase}.ph ul{margin:0;padding-left:20px;color:var(--mut)}
+.gate{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:8px}
+.gate button{display:flex;gap:12px;text-align:left;align-items:flex-start;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:12px 14px;font:15px/1.4 "IBM Plex Sans",sans-serif;cursor:pointer}
+.gate button b{flex:none;width:22px;height:22px;border:2px solid var(--mut);border-radius:4px;display:grid;place-items:center;font-size:14px;color:transparent}
+.gate button[aria-pressed=true]{border-color:var(--ok)}
+.gate button:disabled{cursor:default;color:var(--fg)}
+.gate button[aria-pressed=true] b{background:var(--ok);border-color:var(--ok);color:#000}
+.bar{height:10px;background:var(--line);border-radius:9px;margin-top:30px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.dl{margin-top:22px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.dl button{font:600 17px "IBM Plex Sans",sans-serif;padding:14px 26px;border-radius:4px;border:2px solid var(--cob);background:var(--cob);color:#fff;cursor:pointer}
+.dl button:disabled{background:none;border-color:var(--line);color:var(--mut);cursor:not-allowed}
+.sev{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:36px}
+.sev div{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:18px}
+.sev h3{font-size:56px}.sev p{margin:8px 0 0;color:var(--mut);font-size:15px}
+footer{padding:60px 0;color:var(--mut);font-size:15px}
+footer b{font-family:"Big Shoulders Display",Impact,sans-serif;font-size:34px;color:var(--fg);display:block;margin-bottom:6px}
+@media(max-width:800px){.hgrid,.ph{grid-template-columns:1fr}section{padding:60px 0}}
+@media(prefers-reduced-motion:reduce){.cur{animation:none}.bar i{transition:none}}
+</style></head><body>
+<header class="hero"><div class="w">
+<nav><b>SENTINELOS</b><div><a href="#rules">Rules</a><a href="#compat">Windows</a><a href="#phases">Phases</a><a href="#gate">Release gate</a><button id="th" aria-label="Toggle light or dark theme">Theme</button></div></nav>
+<h1>Eternity</h1>
+<p class="sub">SentinelOS V10. The release that never lies about itself.</p>
+<div class="hgrid">
+<div><p>The first official stable public release of SentinelOS: a Windows-compatible desktop OS built on the existing SentinelOS kernel. No placeholder APIs, no invented benchmarks, no false claims. It ships when it is verified, not before.</p>
+<div class="btns"><a class="btn" href="#gate">See the release gate</a><a class="btn o" href="#rules">Read the rules</a></div></div>
+<div class="boot" id="boot" aria-label="Simulated boot log"></div>
+</div></div></header>
+
+<section id="rules"><div class="w">
+<h2>Rules that can’t bend</h2>
+<p class="lead">Fifteen non-negotiables guide V10. These six define the character of the release.</p>
+<div class="rules">
+<div class="rule"><h3>One kernel</h3><p>The existing SentinelOS kernel stays. No second kernel, no renaming files to fake a new one.</p></div>
+<div class="rule"><h3>No fake exports</h3><p>Every API returns correct values, structures and errors. An export that only says “success” is a bug.</p></div>
+<div class="rule"><h3>Tested or not claimed</h3><p>Compatibility is listed only after a real test. No universal Windows claims.</p></div>
+<div class="rule"><h3>Honest graphics</h3><p>If the CPU is drawing the screen, the OS says so. No false GPU acceleration.</p></div>
+<div class="rule"><h3>Your data first</h3><p>Installs and updates never touch user data. Destructive disk work needs explicit confirmation of the exact target disk.</p></div>
+<div class="rule"><h3>Verified push only</h3><p>Develop in place on main, with no dev commits. One verified release commit goes to origin/main.</p></div>
+</div></div></section>
+
+<section><div class="w">
+<h2>Everything, one architecture</h2>
+<p class="lead">Twenty-two subsystems with documented interfaces and no duplicate implementations. The highlighted ones are the heart of the release.</p>
+<div class="chips">
+<span class="k">Existing SentinelOS kernel</span><span class="k">Windows compatibility subsystem</span><span class="k">Desktop environment</span><span class="k">Installer and recovery</span>
+<span>Bootloader</span><span>Physical memory</span><span>Virtual memory</span><span>Kernel heap</span><span>Processes</span><span>Threads</span><span>Scheduler</span><span>Interrupts</span><span>System calls</span><span>Objects and handles</span><span>I/O manager</span><span>Driver framework</span><span>Security</span><span>Filesystems</span><span>Storage</span><span>Network stack</span><span>Audio</span><span>Graphics</span><span>System services</span><span>Application infrastructure</span>
+</div></div></section>
+
+<section id="compat"><div class="w">
+<h2>Windows apps, measured</h2>
+<p class="lead">PE32+ loading, DLL resolution, relocations, TLS and exceptions, plus real KERNEL32, NTDLL, USER32, GDI32, ADVAPI32, SHELL32, WS2_32, BCRYPT, UCRT, COM and more. Results land in a public compatibility database. Nothing is rated until it is tested.</p>
+<div class="tw"><table>
+<thead><tr><th>Application</th><th>Version</th><th>Environment</th><th>Launch</th><th>Rating</th><th>Tested</th></tr></thead>
+<tbody>
+<tr><td>Geometry Dash</td><td>–</td><td>–</td><td>–</td><td><span class="tag">Untested</span></td><td>–</td></tr>
+<tr><td>Google Chrome installer</td><td>–</td><td>–</td><td>–</td><td><span class="tag">Untested</span></td><td>–</td></tr>
+<tr><td>Other real PE32+ applications</td><td>–</td><td>–</td><td>–</td><td><span class="tag">Untested</span></td><td>–</td></tr>
+</tbody></table></div>
+<p class="lead">Each entry will record dependencies, working functionality, known problems and the test date.</p>
+</div></section>
+
+<section id="phases"><div class="w">
+<h2>Ten steps to official</h2>
+<p class="lead">V10 moves through controlled stages. Pick a stage to see what it must prove.</p>
+<div class="tabs" role="tablist" id="tabs"></div>
+<div class="ph" id="ph" role="tabpanel" aria-live="polite"></div>
+</div></section>
+
+<section><div class="w">
+<h2>Bugs, ranked</h2>
+<p class="lead">P0 and P1 issues block release. No known data-corruption or critical security issues are allowed through.</p>
+<div class="sev">
+<div><h3 style="color:#ff5c5c">P0</h3><p>Critical security, data loss or unbootable system.</p></div>
+<div><h3 style="color:var(--sig)">P1</h3><p>Major functionality failure or severe instability.</p></div>
+<div><h3>P2</h3><p>Significant feature defect.</p></div>
+<div><h3 style="color:var(--mut)">P3</h3><p>Minor defect or cosmetic issue.</p></div>
+</div></div></section>
+
+<section id="gate"><div class="w">
+<h2>The release gate</h2>
+<p class="lead">V10 cannot be called released until all 18 criteria pass. Each one is marked only after independent verification, and the ISO stays locked until every box is checked. Come back to see progress.</p>
+<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="18" aria-valuenow="0" id="pb"><i id="pf"></i></div>
+<div class="gate" id="gate"></div>
+<div class="dl"><button id="dlb" disabled>ISO not yet available</button><span id="dls" style="color:var(--mut)">Locked: 0 of 18 criteria verified.</span></div>
+</div></section>
+
+<footer><div class="w"><b>SentinelOS V10 Eternity</b>LTS dates and support duration are set before the official release, never invented. Unsupported hardware and applications will be documented. SentinelOS V10 is in pre-release and there is no public download yet. This page describes the V10 specification; it does not claim any feature is complete.</div></footer>
+
+<script>
+(function(){
+var L=[
+["Boot log","Starting SentinelOS V10 ETERNITY","ok"],["Kernel","Existing SentinelOS kernel: preserved","ok"],["Memory","Physical and virtual memory: init","ok"],["Windows","PE32+ loader: ready","ok"],["Graphics","Renderer: CPU (reported honestly)","warn"],["Compat","Applications rated: 0 (untested)","warn"],["Release","Acceptance criteria met: 0 of 18","warn"],["Status","Pre-release. Not for public use.","warn"]];
+var b=document.getElementById('boot'),i=0,rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function line(r){var d=document.createElement('div');d.innerHTML='<'+(r[2]=='ok'?'i':'em')+'>['+(r[2]=='ok'?' OK ':'WARN')+']</'+(r[2]=='ok'?'i':'em')+'> '+r[0]+': '+r[1].replace(/^[^:]*: ?/,'');b.appendChild(d)}
+function step(){var c=b.querySelector('.cur');if(c)c.remove();if(i<L.length){line(L[i++]);b.lastChild.insertAdjacentHTML('beforeend','<span class="cur"></span>');setTimeout(step,rm?0:520)}else b.lastChild.insertAdjacentHTML('beforeend','<span class="cur"></span>')}
+step();
+var P=[
+["V10.1","Feature freeze",["Complete planned features","Stop adding experimental subsystems","Freeze interfaces"]],
+["V10.2","Kernel stabilization",["Fix memory, scheduling and boot defects","Complete kernel regression tests"]],
+["V10.3","Compatibility certification",["Test Windows applications","Test runtimes and DLLs","Test graphics compatibility"]],
+["V10.4","Hardware certification",["Verify supported hardware","Document untested devices"]],
+["V10.5","Installer and recovery",["Clean installation and upgrade testing","Disk safety","Recovery testing"]],
+["V10.6","Security audit",["Review privilege boundaries and drivers","Review update integrity","Resolve critical findings"]],
+["V10.7","Performance and stress",["Benchmark against the previous stable baseline","Stress test","Investigate memory leaks"]],
+["V10.8","Release candidate",["Accept only release-blocking fixes","Publish candidate artifacts for testing"]],
+["V10.9","Final verification",["Independent QA","Rebuild from clean source","Verify checksums and signatures"]],
+["V10.0","Eternity official",["Publish ISO, source and documentation","Publish compatibility information","Begin LTS maintenance"]]];
+var T=document.getElementById('tabs'),H=document.getElementById('ph');
+function show(n){[].forEach.call(T.children,function(x,k){x.setAttribute('aria-selected',k==n)});var p=P[n];H.innerHTML='<div><h3>'+p[0]+'</h3><h3 style="color:var(--sig)">'+p[1]+'</h3></div><ul>'+p[2].map(function(s){return'<li>'+s+'</li>'}).join('')+'</ul>'}
+P.forEach(function(p,n){var x=document.createElement('button');x.setAttribute('role','tab');x.textContent=p[0];x.onclick=function(){show(n)};T.appendChild(x)});show(0);
+var C=["Full build succeeds","Clean boot succeeds","Desktop starts reliably","Core system applications work","Installation succeeds","Disk safety tests pass","Filesystem tests pass","Critical kernel regressions resolved","Security review completed","Network functionality tested","Graphics capabilities verified","Audio verified where supported","Windows compatibility results documented","Update and rollback tested","Recovery procedures tested","Public documentation complete","Release artifacts verified","Independent QA approves"];
+var G=document.getElementById('gate'),n=0;
+function upd(){document.getElementById('pf').style.width=(n/18*100)+'%';document.getElementById('pb').setAttribute('aria-valuenow',n);document.getElementById('dlb').disabled=n<18;document.getElementById('dls').textContent=n<18?'Locked: '+n+' of 18 criteria verified.':'All 18 criteria verified. Release unlocked.'}
+C.forEach(function(t){var x=document.createElement('button');x.setAttribute('aria-pressed','false');x.innerHTML='<b>✓</b><span>'+t+'</span>';x.disabled=true;G.appendChild(x)});
+var r=document.documentElement;document.getElementById('th').onclick=function(){var d=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark');r.setAttribute('data-theme',d=='dark'?'light':'dark')};
+})();
+</script></body></html>
